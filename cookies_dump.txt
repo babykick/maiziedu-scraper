@@ -1,0 +1,23 @@
+53gid0	71097191701	N/A	N/A	N/A	20				
+53gid0	71097191701	N/A	N/A	N/A	20				
+53gid1	71097191701	N/A	N/A	N/A	20				
+53gid2	71097191701	N/A	N/A	N/A	20				
+53gid2	71097191701	N/A	N/A	N/A	20				
+53kf_72114760_keyword		N/A	N/A	N/A	24				
+53uvid	1	N/A	N/A	N/A	10				
+53uvid	1	N/A	N/A	N/A	10				
+Hm_lpvt_e3879546912fd4b2d6e909e064d49262	1444871775	N/A	N/A	N/A	53				
+Hm_lvt_e3879546912fd4b2d6e909e064d49262	1444610381,1444807297,1444868014	N/A	N/A	N/A	74				
+__utma	15888170.461068974.1444610381.1444812161.1444868015.20	N/A	N/A	N/A	63				
+__utmb	15888170.11.10.1444868015	N/A	N/A	N/A	34				
+__utmc	15888170	N/A	N/A	N/A	17				
+__utmz	15888170.1444807298.18.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic|utmctr=%E9%BA%A6%E5%AD%90%E5%AD%A6%E9%99%A2	N/A	N/A	N/A	120				
+_ga	GA1.2.461068974.1444610381	N/A	N/A	N/A	32				
+csrftoken	bvQgbCJKDcE8khO6b6e2thIBsss5B6K1	N/A	N/A	N/A	44				
+isLoadPage	loaded	N/A	N/A	N/A	19				
+kf_72114760_keyword_ok	1	N/A	N/A	N/A	26				
+onliner_zdfq72114760	0	N/A	N/A	N/A	24				
+onliner_zdfq72114760	0	N/A	N/A	N/A	24				
+sessionid	96m5rnf147ynnczxptl750gxb6v7rs8i	N/A	N/A	N/A	44				
+visitor_type	old	N/A	N/A	N/A	18				
+visitor_type	old	N/A	N/A	N/A	18		
