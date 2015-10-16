@@ -39,7 +39,7 @@ class CourseSpider(scrapy.Spider):
             serial_name = ele.xpath('./a/@title').extract_first().strip()
             # 过滤需要爬取的系列，按名称 unicode
             if self.serial is not None and serial_name != self.serial: continue
-            print serial_name
+            #print serial_name
             yield Request(url=url, callback=self.parse_course_list,
                           meta={'serial':serial_name},
                           dont_filter=True)
@@ -56,7 +56,7 @@ class CourseSpider(scrapy.Spider):
             # 过滤需要爬取的课程，按名称 unicode
             if self.courses is not None and course_name not in self.courses:
                    continue
-            print course_name
+            #print course_name
             yield Request(url=course_url, callback=self.parse_course,
                           meta={'course_name':course_name,
                                 'course_url':course_url,
