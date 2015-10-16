@@ -25,11 +25,13 @@ NEWSPIDER_MODULE = 'maiziedu.spiders'
 
 # Concurrent settings
 #CONCURRENT_ITEMS = 100  # default 100
-CONCURRENT_REQUESTS  = 10  # default 16
+#CONCURRENT_REQUESTS  = 10  # default 16
 #CONCURRENT_REQUESTS_PER_DOMAIN # defalut 8
 #CONCURRENT_REQUESTS_PER_IP # default 0
-DOWNLOAD_WARNSIZE = 0
 
+DOWNLOAD_MAXSIZE = 0
+DOWNLOAD_WARNSIZE = 0
+DOWNLOAD_TIMEOUT = 180
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'maiziedu (+http://www.yourdomain.com)'
