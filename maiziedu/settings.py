@@ -71,6 +71,9 @@ NEWSPIDER_MODULE = 'maiziedu.spiders'
 #}
 ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 1}
 FILES_STORE = 'g:/lessons'
+
+DOWNLOAD_TIMEOUT = 600
+DOWNLOAD_WARNSIZE = 100000000 # 100M
 #FILES_EXPIRES = 0
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
