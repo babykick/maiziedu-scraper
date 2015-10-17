@@ -45,6 +45,8 @@ class CourseSpider(scrapy.Spider):
                           meta={'serial':serial_name},
                           dont_filter=True)
             
+            
+            
     def parse_course_list(self, response):
         """ 抓取该系列下所有课程链接
         """
@@ -87,12 +89,23 @@ class CourseSpider(scrapy.Spider):
     def parse_lesson(self, response):
         """ 解析课程章节页面，生成包含视频下载链接的item
         """
+   
         self.log('parse lesson')
         item = response.meta['item']
         src = response.xpath('//video/source/@src')
         if src:
             src = src.extract_first()
             item['file_urls'] = [src]
-            yield item
+            yield Request(src, method="HEAD", meta={'item':item}, cookies=settings["COOKIES"],
+                         dont_filter=True, callback=self.parse_item)
+            
+            
+    def parse_item(self, response):
+        content_type = response.headers['Content-Type']
+        size = response.headers['Content-Length']
+        item = response.meta['item']
+        item['size'] = size
+        item['content_type'] = content_type
+        yield item
                                   
             

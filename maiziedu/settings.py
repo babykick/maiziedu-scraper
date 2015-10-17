@@ -15,9 +15,16 @@ SPIDER_MODULES = ['maiziedu.spiders']
 NEWSPIDER_MODULE = 'maiziedu.spiders'
 
 
-
+# Custom settings
 COOKIES = dict(line.split('\t')[0:2] for line in open('./cookies_dump.txt'))
 STR_COOKIES = ";".join(k+"="+v for k, v in COOKIES.items()) 
+# DOWNLOAD_MAXSIZE = 100000000
+#DOWNLOADER_HTTPCLIENTFACTORY = 'maiziedu.downloader.LimitSizeHTTPClientFactory'
+DOWNLOAD_TIMEOUT = 180
+DOWNLOAD_WARNSIZE = 200000000 # 200M
+CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
+CONCURRENT_REQUESTS = 5 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
+
 
 # Breath-first order
 # DEPTH_PRIORITY = 1
@@ -59,7 +66,9 @@ COOKIES_ENABLED = True
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 543,
+   # 'maiziedu.middlewares.LimitFileSizeDownloaderMiddleware': 560,
+   #'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None, # disable default
+   #'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 1, # default include
 }
 
 # Enable or disable extensions
@@ -74,14 +83,11 @@ DOWNLOADER_MIDDLEWARES = {
 #    'maiziedu.pipelines.SomePipeline': 300,
 #}
 
-ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 1}
+ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 200,
+                  'maiziedu.pipelines.CurlDownloadPipeline':100,
+                  }
 FILES_STORE = 'g:/lessons'
 
-
-DOWNLOAD_TIMEOUT = 1000
-DOWNLOAD_WARNSIZE = 200000000 # 200M
-CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
-CONCURRENT_REQUESTS = 2 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
 
 #FILES_EXPIRES = 0
 # Enable and configure the AutoThrottle extension (disabled by default)

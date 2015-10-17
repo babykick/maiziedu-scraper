@@ -16,3 +16,5 @@ class MaiziSectionItem(scrapy.Item):
     course_url = scrapy.Field()  # 课程url
     serial_name = scrapy.Field()
     file_urls = scrapy.Field()  # 下载文件地址
+    size = scrapy.Field()
+    content_type = scrapy.Field()
