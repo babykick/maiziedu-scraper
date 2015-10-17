@@ -74,7 +74,8 @@ FILES_STORE = 'g:/lessons'
 
 DOWNLOAD_TIMEOUT = 1000
 DOWNLOAD_WARNSIZE = 200000000 # 200M
-CONCURRENT_REQUESTS = 5 # 同时下载的
+CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
+CONCURRENT_REQUESTS = 2 # 同时并发下载数目
 
 #FILES_EXPIRES = 0
 # Enable and configure the AutoThrottle extension (disabled by default)

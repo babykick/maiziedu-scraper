@@ -28,6 +28,7 @@ class MaizieduPipeline(FilesPipeline):
       
     
     def get_media_requests(self, item, info):
+        print info
         for url in item['file_urls']:
             yield Request(url=url, meta={'item':item}, cookies=COOKIES,
                           dont_filter=False)
