@@ -3,10 +3,11 @@ import scrapy
 from scrapy import Request
 from maiziedu.items import MaiziSectionItem 
 import urlparse
-from maiziedu import COOKIES
+from scrapy.conf import settings
 
+COOKIES = settings["COOKIES"]
 
-
+ 
 class CourseSpider(scrapy.Spider):
     name = "course_spider"
     #allowed_domains = ["maiziedu.com"]

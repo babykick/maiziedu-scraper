@@ -5,11 +5,10 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+import re, os
 from scrapy.pipelines.files import FilesPipeline
 from scrapy import Request
-from maiziedu import COOKIES
-import re
-import os
+from scrapy.conf import settings
 
 class MaizieduPipeline(FilesPipeline):
     def clean_file_name(self, s):
@@ -30,7 +29,7 @@ class MaizieduPipeline(FilesPipeline):
     def get_media_requests(self, item, info):
         print info
         for url in item['file_urls']:
-            yield Request(url=url, meta={'item':item}, cookies=COOKIES,
+            yield Request(url=url, meta={'item':item}, cookies=settings["COOKIES"],
                           dont_filter=False)
      
  

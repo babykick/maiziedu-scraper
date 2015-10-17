@@ -15,6 +15,10 @@ SPIDER_MODULES = ['maiziedu.spiders']
 NEWSPIDER_MODULE = 'maiziedu.spiders'
 
 
+
+COOKIES = dict(line.split('\t')[0:2] for line in open('./cookies_dump.txt'))
+ 
+
 # Breath-first order
 # DEPTH_PRIORITY = 1
 # SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
@@ -69,13 +73,15 @@ NEWSPIDER_MODULE = 'maiziedu.spiders'
 #ITEM_PIPELINES = {
 #    'maiziedu.pipelines.SomePipeline': 300,
 #}
+
 ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 1}
 FILES_STORE = 'g:/lessons'
+
 
 DOWNLOAD_TIMEOUT = 1000
 DOWNLOAD_WARNSIZE = 200000000 # 200M
 CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
-CONCURRENT_REQUESTS = 2 # 同时并发下载数目
+CONCURRENT_REQUESTS = 2 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
 
 #FILES_EXPIRES = 0
 # Enable and configure the AutoThrottle extension (disabled by default)
