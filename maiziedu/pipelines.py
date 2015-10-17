@@ -51,9 +51,11 @@ class FileDownloadPipeline(object):
                              )
         if not os.path.exists(fpath): os.makedirs(fpath)
         fpath = os.path.join(fpath, self.clean_file_name(item['title'] + '.' + ext))
-        subprocess.call('curl --cookie %s --cookie-jar cookies.txt %s -o %s' % (settings["STR_COOKIES"],
-                                                                                item['file_urls'][0], item[''],
-                                                                                fpath))
+        subprocess.call('curl %s -o %s' % (item['file_urls'][0], item[''],  fpath))
+        
+        # subprocess.call('curl --cookie %s --cookie-jar cookies.txt %s -o %s' % (settings["STR_COOKIES"],
+        #                                                                         item['file_urls'][0], item[''],
+        #                                                                         fpath))
         return item
         
         
