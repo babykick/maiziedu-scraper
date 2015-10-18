@@ -62,7 +62,7 @@ class CurlDownloadPipeline(object):
             fpath = prefix +  fpath
             fpath = fpath.encode('gb2312','ignore')
             print fpath
-            subprocess.Popen(fpath)
+            subprocess.Popen(fpath).wait()
             # subprocess.call('curl --cookie %s --cookie-jar cookies.txt %s -o %s' % (settings["STR_COOKIES"],
             #                                                                         item['file_urls'][0], item[''],
             #                                                                         fpath))
