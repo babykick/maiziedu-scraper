@@ -15,6 +15,8 @@ from scrapy.conf import settings
 import subprocess
 from scrapy.exceptions import DropItem
 
+
+
 class MaizieduPipeline(FilesPipeline):
     def clean_file_name(self, s):
         return re.sub('[\*\?\\/<>"]', "", s)
@@ -54,8 +56,9 @@ class CurlDownloadPipeline(object):
                                  self.clean_file_name(item['serial_name']),
                                  self.clean_file_name(item['course_name']),
                                  )
+            # 目标文件夹不存在则创建
             if not os.path.exists(folder):
-                os.makedirs(folder)    #文件夹不存在则创建
+                os.makedirs(folder)    
             fpath = os.path.join(folder, self.clean_file_name(item['title'] + '.' + ext)).encode('gb2312', 'ignore')
             print fpath
             # 如存在同名文件，认为已经下载过了，忽略
@@ -63,14 +66,8 @@ class CurlDownloadPipeline(object):
                 raise DropItem("Duplicated item, file already downloaded, ignore")  
             
             script = u'curl --cookie %s %s -o %s' % (settings['STR_COOKIES'], item['file_urls'][0], fpath)
-            #prefix = u'curl %s -o ' % (item['file_urls'][0],)
-            #script = prefix +  fpath
-            script = script.encode('gb2312','ignore')
             print script
             subprocess.Popen(script).wait()
-            # subprocess.call('curl --cookie %s --cookie-jar cookies.txt %s -o %s' % (settings["STR_COOKIES"],
-            #                                                                         item['file_urls'][0], item[''],
-            #                                                                         fpath))
             raise DropItem("oversized, passed to curl to download")
         return item
         
