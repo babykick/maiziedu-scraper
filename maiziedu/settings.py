@@ -86,7 +86,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 200,
                   'maiziedu.pipelines.CurlDownloadPipeline':100,
                   }
-FILES_STORE = 'g:/lessons'
+FILES_STORE = 'g:\\lessons'
 
 
 #FILES_EXPIRES = 0
