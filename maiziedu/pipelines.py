@@ -50,19 +50,24 @@ class CurlDownloadPipeline(object):
     def process_item(self, item, spider):
         if int(item['size']) > 100000000 : # 大于100M用curl下载
             ext = item['file_urls'][0].split('.')[-1]
-            fpath = os.path.join(settings['FILES_STORE'],
+            folder = os.path.join(settings['FILES_STORE'],
                                  self.clean_file_name(item['serial_name']),
                                  self.clean_file_name(item['course_name']),
                                  )
-            if not os.path.exists(fpath): os.makedirs(fpath) #不存在则创建
-            fpath = os.path.join(fpath, self.clean_file_name(item['title'] + '.' + ext))
-            # fpath =  fpath.encode('gb2312', 'ignore').decode('gb2312', 'ignore')
-            prefix = u'curl --cookie %s %s -o ' % (settings['STR_COOKIES'], item['file_urls'][0])
-            #prefix = u'curl %s -o ' % (item['file_urls'][0],)
-            fpath = prefix +  fpath
-            fpath = fpath.encode('gb2312','ignore')
+            if not os.path.exists(folder):
+                os.makedirs(folder)    #文件夹不存在则创建
+            fpath = os.path.join(folder, self.clean_file_name(item['title'] + '.' + ext)).encode('gb2312', 'ignore')
             print fpath
-            subprocess.Popen(fpath).wait()
+            # 如存在同名文件，认为已经下载过了，忽略
+            if os.path.exists(fpath):
+                raise DropItem("Duplicated item, file already downloaded, ignore")  
+            
+            script = u'curl --cookie %s %s -o %s' % (settings['STR_COOKIES'], item['file_urls'][0], fpath)
+            #prefix = u'curl %s -o ' % (item['file_urls'][0],)
+            #script = prefix +  fpath
+            script = script.encode('gb2312','ignore')
+            print script
+            subprocess.Popen(script).wait()
             # subprocess.call('curl --cookie %s --cookie-jar cookies.txt %s -o %s' % (settings["STR_COOKIES"],
             #                                                                         item['file_urls'][0], item[''],
             #                                                                         fpath))

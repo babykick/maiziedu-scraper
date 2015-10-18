@@ -23,7 +23,7 @@ STR_COOKIES = ";".join(k+"="+v for k, v in COOKIES.items())
 DOWNLOAD_TIMEOUT = 180
 DOWNLOAD_WARNSIZE = 200000000 # 200M
 CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
-CONCURRENT_REQUESTS = 5 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
+CONCURRENT_REQUESTS = 10 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
 
 
 # Breath-first order
@@ -83,9 +83,11 @@ DOWNLOADER_MIDDLEWARES = {
 #    'maiziedu.pipelines.SomePipeline': 300,
 #}
 
-ITEM_PIPELINES = {'maiziedu.pipelines.MaizieduPipeline': 200,
+ITEM_PIPELINES = {
+                  'maiziedu.pipelines.MaizieduPipeline': 200,
                   'maiziedu.pipelines.CurlDownloadPipeline':100,
                   }
+
 FILES_STORE = 'g:\\lessons'
 
 
