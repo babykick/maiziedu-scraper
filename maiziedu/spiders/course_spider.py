@@ -95,7 +95,7 @@ class CourseSpider(scrapy.Spider):
         src = response.xpath('//video/source/@src')
         if src:
             src = src.extract_first()
-            item['file_urls'] = [src]
+            item['file_urls'] = [src] 
             yield Request(src, method="HEAD", meta={'item':item}, cookies=settings["COOKIES"],
                          dont_filter=True, callback=self.parse_item)
             
