@@ -64,7 +64,7 @@ class CurlDownloadPipeline(object):
             if os.path.exists(fpath):
                 raise DropItem("Duplicated item, file already downloaded, ignore")  
             #script = u'curl %s -o ' %  item['file_urls'][0] + '"' + fpath + '"'
-            script = u'curl --cookie "%s" %s -o "%s"' % (settings['STR_COOKIES'], item['file_urls'][0] + '?wsiphost=local', fpath)
+            script = u'"bin/curl.exe" --cookie "%s" %s -o "%s"' % (settings['STR_COOKIES'], item['file_urls'][0] + '?wsiphost=local', fpath)
             print script
             subprocess.Popen(script)    #.wait() 测试wait会阻塞所以不用
             raise DropItem("oversized, passed to curl to download")
