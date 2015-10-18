@@ -66,7 +66,7 @@ class CurlDownloadPipeline(object):
             #script = u'curl %s -o ' %  item['file_urls'][0] + '"' + fpath + '"'
             script = u'curl --cookie "%s" %s -o "%s"' % (settings['STR_COOKIES'], item['file_urls'][0] + '?wsiphost=local', fpath)
             print script
-            subprocess.Popen(script)#.wait()
+            subprocess.Popen(script)    #.wait() 测试wait会阻塞所以不用
             raise DropItem("oversized, passed to curl to download")
         return item
         
