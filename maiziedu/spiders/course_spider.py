@@ -80,7 +80,7 @@ class CourseSpider(scrapy.Spider):
             item['course_name'] = response.meta['course_name']
             item['serial_name'] = response.meta['serial']
             item['url']= urlparse.urljoin(self.home_page, lesson_url)
-            item['title'] = ele.xpath('./text()').extract_first()
+            item['title'] = ele.xpath('./text()').extract_first().replace(u"\xa0","").strip()
             yield Request(url=item['url'], meta={'item':item},
                           callback=self.parse_lesson, cookies=COOKIES,
                           dont_filter=True)
