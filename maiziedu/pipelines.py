@@ -50,7 +50,7 @@ class CurlDownloadPipeline(object):
     
     
     def process_item(self, item, spider):
-        if int(item['size']) > 100: #100000000 : # 大于100M用curl下载
+        if int(item['size']) > 100000000 : # 大于100M用curl下载
             ext = item['file_urls'][0].split('.')[-1]
             folder = os.path.join(settings['FILES_STORE'],
                                  self.clean_file_name(item['serial_name']),
@@ -59,14 +59,14 @@ class CurlDownloadPipeline(object):
             # 目标文件夹不存在则创建
             if not os.path.exists(folder):
                 os.makedirs(folder)    
-            fpath = os.path.join(folder, self.clean_file_name(item['title'] + '.' + ext)).encode('gb2312')
+            fpath = os.path.join(folder, self.clean_file_name(item['title'] + '.' + ext)).encode('gb2312','ignore')
             # 如存在同名文件，认为已经下载过了，忽略
             if os.path.exists(fpath):
                 raise DropItem("Duplicated item, file already downloaded, ignore")  
             #script = u'curl %s -o ' %  item['file_urls'][0] + '"' + fpath + '"'
             script = u'curl --cookie "%s" %s -o "%s"' % (settings['STR_COOKIES'], item['file_urls'][0] + '?wsiphost=local', fpath)
             print script
-            subprocess.Popen(script).wait()
+            subprocess.Popen(script)#.wait()
             raise DropItem("oversized, passed to curl to download")
         return item
         
