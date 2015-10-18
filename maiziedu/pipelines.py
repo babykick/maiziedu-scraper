@@ -6,9 +6,9 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import re, os
-import sys
-reload(sys)
-sys.setdefaultencoding('gb2312')
+# import sys
+# reload(sys)
+# sys.setdefaultencoding('gb2312')
 from scrapy.pipelines.files import FilesPipeline
 from scrapy import Request
 from scrapy.conf import settings
@@ -38,9 +38,7 @@ class MaizieduPipeline(FilesPipeline):
         yield Request(url=url, meta={'item':item}, cookies=settings["COOKIES"],
                       dont_filter=False )
         
-         
-
-     
+          
 class CurlDownloadPipeline(object):
     """ Use curl to download file
     """
