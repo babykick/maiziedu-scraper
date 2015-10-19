@@ -61,7 +61,8 @@ class CurlDownloadPipeline(object):
             fpath = os.path.join(folder, self.clean_file_name(item['title'] + '.' + ext)).encode('gb2312','ignore')
             # 如存在同名文件，认为已经下载过了，忽略
             if os.path.exists(fpath):
-                raise DropItem("Duplicated item, file already downloaded, ignore")  
+                raise DropItem("Duplicated item, file already downloaded, ignore")
+            # 开始下载
             #script = u'curl %s -o ' %  item['file_urls'][0] + '"' + fpath + '"'
             script = u'"bin/curl.exe" --cookie "%s" "%s" -o "%s"' % (settings['STR_COOKIES'], item['file_urls'][0] + '?wsiphost=local', fpath)
             print script
