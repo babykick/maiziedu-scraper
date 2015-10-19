@@ -6,9 +6,9 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import re, os
-# import sys
-# reload(sys)
-# sys.setdefaultencoding('gb2312')
+import sys
+reload(sys)
+sys.setdefaultencoding('gb2312')
 from scrapy.pipelines.files import FilesPipeline
 from scrapy import Request
 from scrapy.conf import settings
@@ -42,13 +42,14 @@ class MaizieduPipeline(FilesPipeline):
 class CurlDownloadPipeline(object):
     """ Use curl to download file
     """
-   
+    threshold = 100000000  # 大于100M用curl下载
+    
     def clean_file_name(self, s):
         return re.sub(u'[\*\?\\/<>"]', "", s.strip())
     
     
     def process_item(self, item, spider):
-        if int(item['size']) > 100000000 : # 大于100M用curl下载
+        if int(item['size']) > self.threshold : 
             ext = item['file_urls'][0].split('.')[-1]
             folder = os.path.join(settings['FILES_STORE'],
                                  self.clean_file_name(item['serial_name']),
