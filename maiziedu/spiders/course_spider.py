@@ -15,23 +15,29 @@ class CourseSpider(scrapy.Spider):
     start_urls = ( 'http://www.maiziedu.com/course/',
                   )
      
-    
-    def __init__(self, serial=None, courses=None, *args, **kwargs):
+
+    def __init__(self, serial=None, courses=None, course_url=None, *args, **kwargs):
         super(CourseSpider, self).__init__(*args, **kwargs)
         self.serial = serial
         self.courses = courses
-        # serial为一个系列名称
-        if self.serial is not None:
-            self.serial = self.serial.decode('gb2312').strip()
-          
-        # courses为一个课程名list
-        if self.courses is not None:
-            self.courses = self.courses.decode('gb2312').strip().split(',')
+        self.course_url = course_url
+        
+    
+    def start_requests(self):
+        if self.course_url is not None:  # 指定单一课程的url
+            yield Request(self.course_url, callback=self.parse_course, meta={'serial': self.course_url.rstrip('/').split('/')[-1]})
+        else:    
+            # serial为一个系列名称
+            self.serial = self.serial.decode('gb2312').strip() if self.serial is not None else self.serial
+            # courses为一个课程名list
+            self.courses = self.courses.decode('gb2312').strip().split(',') if self.courses is not None else self.courses
+            for url in self.start_urls:
+                yield Request(url, callback=self.parse)
+              
          
-             
      
     def parse(self, response):
-        """ 抓取所有系列 
+        """ 抓取所有企业直通班系列 
         """
         self.log('parse course serials')
         for ele in response.xpath('//ul[contains(@class, "course_list")]/li'):
@@ -61,8 +67,8 @@ class CourseSpider(scrapy.Spider):
                    continue
             #print course_name
             yield Request(url=course_url, callback=self.parse_course,
-                          meta={'course_name':course_name,
-                                'course_url':course_url,
+                          meta={#'course_name':course_name,
+                                #'course_url':course_url,
                                 'serial':response.meta['serial']},
                           cookies=COOKIES,
                           dont_filter=True)
@@ -75,9 +81,9 @@ class CourseSpider(scrapy.Spider):
         # item['course_name'] = response.xpath('//dl[@class="course-lead"]/dt/text()').extract_first()
         for ele in response.xpath('//div[contains(@class, "playlist")]/ul/li/a'):
             item = MaiziSectionItem()
-            lesson_url  = ele.xpath('./@href').extract_first()
-            item['course_url'] = response.meta['course_url']
-            item['course_name'] = response.meta['course_name']
+            lesson_url = ele.xpath('./@href').extract_first()
+            item['course_url'] = response.url #.meta['course_url']
+            item['course_name'] = response.css('.course-lead').xpath('./dt/text()').extract_first().strip() # .meta['course_name']
             item['serial_name'] = response.meta['serial']
             item['url']= urlparse.urljoin(self.home_page, lesson_url)
             item['title'] = ele.xpath('./text()').extract_first().replace(u"\xa0","").strip()

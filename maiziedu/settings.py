@@ -24,6 +24,7 @@ DOWNLOAD_TIMEOUT = 180
 DOWNLOAD_WARNSIZE = 100000000 # 100M
 CONCURRENT_ITEMS = 100 # Maximum number of concurrent items (per response) to process in parallel in the Item Processor (Pipeline)
 CONCURRENT_REQUESTS = 18 # 同时并发下载数目, 内存不够的情况下，小并发可以减小内存消耗，减少内存错误发生几率
+USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36"
 
 
 # Breath-first order
